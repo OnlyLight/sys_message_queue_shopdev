@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.13-management  # Official RabbitMQ image with management plugin
+    container_name: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: guest  # Default username
+      RABBITMQ_DEFAULT_PASS: guest  # Default password
+    ports:
+      - "5672:5672"  # AMQP port for client connections
+      - "15672:15672"  # Management UI port
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq  # Persist data
+    networks:
+      - server_network
+
+volumes:
+  rabbitmq_data:
+
+networks:
+  server_network:
+    driver: bridge
